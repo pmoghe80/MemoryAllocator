@@ -15,43 +15,35 @@ Node_t AllocNode () {
 }
 
 Node_t fetchFreeNode (Node_t head) {
-       if (!(head)) {
-          return NULL;
-       }
-
        if (!head->next && !head->prev) {
           return NULL;
        }
 
        Node_t tmp = head->next;
-       if (tmp) {
-          head->next = tmp->next; 
-          if (head->prev == tmp) {
-              head->prev = NULL;
-          }
-          if (head->next == head) {
-             head->next = NULL;
-          } 
-       } else {
-          return NULL;
-       }   
+       head->next = tmp->next; 
+       if (head->prev == tmp) {
+          head->prev = NULL;
+          head->next = NULL;
+          return tmp;
+       }
+
+       /*if (head->next == head) {
+          head->next = NULL;
+       } */
        return tmp;
 }
     
 Node_t Insert (Node_t *head, Node_t n, void *item) {
-      if (!n) {
-         return NULL;
-      }
 
       if (!(*head)->prev) {
          (*head)->prev = n;
+         (*head)->next = n;
+         n->next       = *head;
+         n->prev       = *head;
+         return NULL; 
       }
       
-      if (!(*head)->next) {
-         n->next = (*head);
-      } else {
-         n->next = (*head)->next;
-      }
+      n->next = (*head)->next;
       n->prev = (*head);
       n->item = item;      
       (*head)->next = n;

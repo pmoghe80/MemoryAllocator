@@ -117,26 +117,26 @@ void freeMemory (struct MyMem *m, void *addr) {
 
 int main() {
 
-   struct MyMem  *m = initAlloc();
+   /*struct MyMem  *m = initAlloc();
    if (!m) {
      printf("Could not init allocator\n");
      return 1;
-   }
+   }*/
 
 
  int i=0;
  int j=0;
  unsigned long alloc_addr[6];
- for (i=0; i<10000000; i++) {
-   void *addr = getMemory(m);
+ for (i=0; i<1000000; i++) {
+   /*void *addr = getMemory(m);
    alloc_addr[j++] = (unsigned long)addr;
    if (i && i%5 == 0) { 
-      for (j=0; j < 6; j++) {
+      for (j=0; j < 5; j++) {
          freeMemory(m,(void *)alloc_addr[j]);
       }
       j = 0;
-   }
-   /*void *addr = malloc(4096);
+   }*/
+   void *addr = malloc(4096);
    alloc_addr[j++] = (unsigned long)addr;
    //cout << j << endl;
    if (i && i%5 == 0) {
@@ -145,7 +145,7 @@ int main() {
           alloc_addr[j] = NULL; 
       }
       j=0;
-   }*/
+   }
  }
    return 0;
 }
